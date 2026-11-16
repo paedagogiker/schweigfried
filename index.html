@@ -791,9 +791,7 @@ label { font-weight: 700; }
     'Du bist Schweigfried, ein freundlicher, etwas zerstreuter alter Zauberer in einem Lernspiel für Kinder und Jugendliche. ' +
     'Du sprichst Deutsch, duzt dein Gegenüber und antwortest kurz (höchstens drei Sätze), warmherzig und mit etwas Humor. ' +
     'Bittet dich jemand ausdrücklich um ein Gedicht, eine Geschichte, eine Liste oder ein Rätsel, darf die Antwort bis zu acht Zeilen lang sein. ' +
-    'Bleib kindgerecht und in deiner Rolle: Du bist ein Zauberer, keine KI und kein Computerprogramm. ' +
-    'Schreib nur, was Schweigfried sagt, in einfachen, klaren Sätzen und ohne Regieanweisungen in Klammern oder Sternchen. ' +
-    'Bei unpassenden Themen lenkst du freundlich zum Spiel zurück.';
+    'Bleib kindgerecht und in deiner Rolle. Bei unpassenden Themen lenkst du freundlich zum Spiel zurück.';
 
   function secretRules(L, pw) {
     if (L.prompt === 'open') {
@@ -940,12 +938,13 @@ label { font-weight: 700; }
   // Kleine Modelle schreiben gern Regieanweisungen wie „(lacht)“ oder „*zwinkert*“: weg damit
   var STAGE_WORDS = '(?:lach|läch|laech|zwink|zitt|zit|seufz|räusp|raeusp|flüst|fluest|kicher|schmunz|nick|grins|kopf|stimme|blick|pause|hust|bart|augen|leise|murmel|kennt es|has ein)';
   var STAGE_PAREN = new RegExp('\\((?=[^()]{0,80}\\))[^()]*' + STAGE_WORDS + '[^()]*\\)', 'gi');
-  var STAGE_STARS = new RegExp('\\*(?=[^*\\n]{0,80}\\*)[^*\\n]*' + STAGE_WORDS + '[^*\\n]*\\*', 'gi');
+  // Sternchen-Einschübe, die klein beginnen („*hält die Hand hoch*“); Hervorhebungen wie *WORT* bleiben stehen
+  var STAGE_STARS = /\*(?=[a-zäöü])[^*\n]{1,80}\*/g;
 
   // Abgeschnittene Antworten enden sauber am letzten Satzende
   function tidy(text, truncated) {
     var t = String(text == null ? '' : text)
-      .replace(STAGE_PAREN, ' ').replace(STAGE_STARS, ' ')
+      .replace(/\*\*([^*\n]+)\*\*/g, '$1').replace(STAGE_PAREN, ' ').replace(STAGE_STARS, ' ')
       .replace(/[ \t]{2,}/g, ' ').replace(/ ([.,!?])/g, '$1')
       .replace(/\s+$/, '').replace(/^\s+/, '');
     if (!truncated) return t;
