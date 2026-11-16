@@ -1,7 +1,7 @@
 /* Schweigfried – Service Worker: macht das Spiel nach dem ersten Besuch offline nutzbar.
  * Gespeichert werden nur die Spieldateien und die WebLLM-Bibliothek.
  * Die Modelldateien verwaltet WebLLM selbst im Browser-Speicher. */
-const VERSION = '683a47e22620';
+const VERSION = '3c3ff7d1c65a';
 const SHELL = 'schweigfried-shell-' + VERSION;
 const LIB = 'schweigfried-lib-v1';
 const FILES = ['./', 'index.html', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
