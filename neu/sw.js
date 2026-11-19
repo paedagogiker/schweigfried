@@ -1,7 +1,7 @@
 /* Schweigfried – Service Worker: macht das Spiel nach dem ersten Besuch offline nutzbar.
- * Gespeichert werden nur die Spieldateien und die KI-Bibliotheken (Transformers.js, WebLLM) vom CDN.
- * Die Modelldateien verwalten die Bibliotheken selbst im Browser-Speicher. */
-const VERSION = '8694c324f38c';
+ * Gespeichert werden nur die Spieldateien und die KI-Bibliothek WebLLM vom CDN.
+ * Die Modelldateien verwaltet WebLLM selbst im Browser-Speicher. */
+const VERSION = 'eca5bd6a65bd';
 const SHELL = 'schweigfried-shell-' + VERSION;
 const LIB = 'schweigfried-lib-v1';
 const FILES = ['./', 'index.html', 'config.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
